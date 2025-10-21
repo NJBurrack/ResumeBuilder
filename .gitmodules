@@ -1,0 +1,3 @@
+[submodule "frontend"]
+	path = frontend
+	url = git@github.com:WD-24-E08-mentoring/job-applications-fe.git
