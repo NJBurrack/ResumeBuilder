@@ -3,6 +3,11 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
 from .models import Resume
+from django.core import mail
+from django.test import TestCase
+from resumes.tasks import send_resume_created_email
+
+
 
 User = get_user_model()
 
@@ -87,3 +92,16 @@ class ResumeAPITest(APITestCase):
 # skills, job history & education histroy
 # aunthenticates user for permission tests correctly
 # asserts expected response data types
+
+
+class ResumeEmailTaskTest(TestCase):
+    def test_send_resume_created_email(self):
+        send_resume_created_email(
+            resume_id=123,
+            user_email='testuser@example.com'
+        )
+        # Check that one message was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn('Resume Created', mail.outbox[0].subject)
+        self.assertIn('123', mail.outbox[0].body)
+        self.assertIn('testuser@example.com', mail.outbox[0].to)
