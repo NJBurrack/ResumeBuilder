@@ -21,8 +21,6 @@ class EducationHistorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'qualification']
 
 
-
-
 class ResumeSerializer(serializers.ModelSerializer):
     skills = SkillSerializer(many=True, read_only=True)
     job_history = JobHistorySerializer(many=True, read_only=True)

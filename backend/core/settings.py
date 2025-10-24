@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -143,6 +145,8 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+print("EMAIL_HOST_USER:", EMAIL_HOST_USER, "EMAIL_HOST_PASSWORD:", EMAIL_HOST_PASSWORD)
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
