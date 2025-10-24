@@ -45,7 +45,7 @@ jobs:
       - name: Run tests
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/cv_db
-          SECRET_KEY: dummy-secret-key
+          DJANGO_SECRET_KEY: dummy-secret-key
         run: |
           cd backend
           python manage.py migrate
