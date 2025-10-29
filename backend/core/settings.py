@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'resumes',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
+    'drf_spectacular',
     
 ]
 
@@ -151,3 +153,19 @@ print("EMAIL_HOST_USER:", EMAIL_HOST_USER, "EMAIL_HOST_PASSWORD:", EMAIL_HOST_PA
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Individual Task API',
+    'DESCRIPTION': 'Rock your world with this API',
+    'VERSION': '0.0.1', # Research: learn about semver
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+
+REST_FRAMEWORK = {    
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+}
