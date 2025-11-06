@@ -1,7 +1,30 @@
-venv/
-.gitmodules
-.env
-*.pyc
+# Python
 __pycache__/
-db.sqlite3
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE/editor
 .vscode/
+.idea/
+
+# Local sqlite
+*.sqlite3
+
+# Coverage
+.coverage
+htmlcov/
+
+# Django static files and media
+staticfiles/
+media/
+
+# Local environment variables
+.env
+
+# pytest
+.pytest_cache/
