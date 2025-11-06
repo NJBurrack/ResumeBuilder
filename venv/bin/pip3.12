@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/dci-student/Downloads/Python Lectures/Large_assignments/individual-tasks-NaimStuDCI/backend/venv/bin/python3" "$0" "$@"
+'''exec' "/home/dci-student/Downloads/Python Lectures/Large_assignments/individual-tasks-NaimStuDCI/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
