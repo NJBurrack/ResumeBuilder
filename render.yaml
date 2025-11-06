@@ -29,12 +29,11 @@ services:
           name: resume-valkey
           type: redis
 
-databases:
-  - name: resume-db
-    plan: free
-
-services:
   - type: redis
     name: resume-valkey
     ipAllowList: []
+    plan: free
+
+databases:
+  - name: resume-db
     plan: free
