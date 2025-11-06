@@ -5,5 +5,5 @@ from .tasks import send_resume_created_email
 
 @receiver(post_save, sender=Resume)
 def notify_resume_created(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.owner:
         send_resume_created_email.delay(instance.id, instance.owner.email)

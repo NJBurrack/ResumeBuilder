@@ -14,19 +14,27 @@ class Resume(models.Model):
     bio = models.TextField()
     address = models.CharField(max_length=255)
 
-class Skill(models.Model):
-    resume = models.ForeignKey(Resume, related_name='skills', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    skill_level = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-
 class JobHistory(models.Model):
-    resume = models.ForeignKey(Resume, related_name='job_history', on_delete=models.CASCADE)
+    resume = models.ForeignKey(
+        Resume, related_name="job_history", on_delete=models.CASCADE
+    )
+    job_title = models.CharField(max_length=255)
     start_date = models.DateField()
-    end_date = models.DateField()
-    description = models.TextField()
-    job_title = models.CharField(max_length=100)
+    end_date = models.DateField(null=True, blank=True)
+    description = models.TextField(blank=True)
+
+class Skill(models.Model):
+    resume = models.ForeignKey(
+        Resume, related_name="skills", on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255)
+    level = models.CharField(max_length=50, blank=True)
 
 class EducationHistory(models.Model):
-    resume = models.ForeignKey(Resume, related_name='education_history', on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    qualification = models.CharField(max_length=255)
+    resume = models.ForeignKey(
+        Resume, related_name="education_history", on_delete=models.CASCADE
+    )
+    institution = models.CharField(max_length=255)
+    degree = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
