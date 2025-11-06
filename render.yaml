@@ -13,6 +13,7 @@ services:
         fromService:
           name: resume-valkey
           type: redis
+          property: connectionString
 
   - type: worker
     name: celery-worker
@@ -28,6 +29,7 @@ services:
         fromService:
           name: resume-valkey
           type: redis
+          property: connectionString
 
   - type: redis
     name: resume-valkey
