@@ -10,9 +10,12 @@ User = get_user_model()
 
 class Resume(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='resumes')
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     bio = models.TextField()
     address = models.CharField(max_length=255)
+    job_history_order = models.PositiveIntegerField(default=0)
+    skills_order = models.PositiveIntegerField(default=1)
+    education_history_order = models.PositiveIntegerField(default=2)
 
 class JobHistory(models.Model):
     resume = models.ForeignKey(
