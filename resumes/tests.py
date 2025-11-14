@@ -7,7 +7,9 @@ from django.core import mail
 from django.test import TestCase
 from resumes.tasks import send_resume_created_email
 
+
 User = get_user_model()
+
 
 class ResumeAPITest(APITestCase):
 
@@ -16,12 +18,12 @@ class ResumeAPITest(APITestCase):
         self.other_user = User.objects.create_user(username='other', password='otherpass')
         self.url = reverse('resume-list-create')
         self.data = {
-            'title': 'John Doe',  # Changed from 'name'
+            'title': 'John Doe',
             'bio': 'Software developer',
             'address': '123 Main St',
             'skills': [
-                {'name': 'Python', 'level': 'Expert'},  # Changed from 'skill_level'
-                {'name': 'Django', 'level': 'Advanced'}  # Changed from 'skill_level'
+                {'name': 'Python', 'level': 'Expert'},
+                {'name': 'Django', 'level': 'Advanced'}
             ],
             'job_history': [
                 {
@@ -33,8 +35,8 @@ class ResumeAPITest(APITestCase):
             ],
             'education_history': [
                 {
-                    'institution': 'University X',  # Changed from 'name'
-                    'degree': 'BSc Computer Science',  # Changed from 'qualification'
+                    'institution': 'University X',
+                    'degree': 'BSc Computer Science',
                     'start_date': '2018-01-01',
                     'end_date': '2022-01-01'
                 }
@@ -46,7 +48,7 @@ class ResumeAPITest(APITestCase):
         response = self.client.post(self.url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Resume.objects.count(), 1)
-        self.assertEqual(Resume.objects.get().title, 'John Doe')  # Changed from .name
+        self.assertEqual(Resume.objects.get().title, 'John Doe')
 
     def test_list_resumes(self):
         self.client.force_authenticate(user=self.user)
@@ -68,7 +70,7 @@ class ResumeAPITest(APITestCase):
         # Try to update as 'other'
         self.client.force_authenticate(user=self.other_user)
         update_data = {
-            'title': 'Jane Doe',  # Changed from 'name'
+            'title': 'Jane Doe',
             'bio': 'Software developer',
             'address': '123 Main St',
             'skills': self.data['skills'],
@@ -83,18 +85,27 @@ class ResumeAPITest(APITestCase):
         response = self.client.put(reverse('resume-detail', kwargs={'pk': resume_id}), data=update_data, format='json')
         self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_204_NO_CONTENT])
         if response.status_code == status.HTTP_200_OK:
-            self.assertEqual(response.data['title'], 'Jane Doe')  # Changed from ['name']
+            self.assertEqual(response.data['title'], 'Jane Doe')
 
 
 class ResumeEmailTaskTest(TestCase):
 
     def test_send_resume_created_email(self):
-        send_resume_created_email(
-            resume_id=123,
-            user_email='testuser@example.com'
+        # Create a real user and resume first!
+        user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpass')
+        resume = Resume.objects.create(
+            title='Test Resume',
+            bio='Test bio',
+            address='Test address',
+            owner=user
         )
+        
+        # Now call the task with the REAL resume ID
+        send_resume_created_email(resume.id, user.email)
+        
         # Check that one message was sent
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn('Resume Created', mail.outbox[0].subject)
-        self.assertIn('123', mail.outbox[0].body)
-        self.assertIn('testuser@example.com', mail.outbox[0].to)
+        self.assertIn('Test Resume', mail.outbox[0].subject)
+        self.assertIn('Test Resume', mail.outbox[0].body)
+        self.assertEqual(['testuser@example.com'], mail.outbox[0].to)

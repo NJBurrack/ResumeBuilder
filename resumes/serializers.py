@@ -62,8 +62,30 @@ class ResumeSerializer(serializers.ModelSerializer):
         return resume
 
     def update(self, instance, validated_data):
-        # simple field updates
+        
+        job_history_data = validated_data.pop('job_history', None)
+        skills_data = validated_data.pop('skills', None)
+        education_data = validated_data.pop('education_history', None)
+        
+        
         for field, value in validated_data.items():
             setattr(instance, field, value)
         instance.save()
+        
+        
+        if job_history_data is not None:
+            instance.job_history.all().delete()
+            for job in job_history_data:
+                JobHistory.objects.create(resume=instance, **job)
+        
+        if skills_data is not None:
+            instance.skills.all().delete()
+            for skill in skills_data:
+                Skill.objects.create(resume=instance, **skill)
+        
+        if education_data is not None:
+            instance.education_history.all().delete()
+            for edu in education_data:
+                EducationHistory.objects.create(resume=instance, **edu)
+        
         return instance
