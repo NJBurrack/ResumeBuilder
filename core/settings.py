@@ -45,10 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'resumes.apps.ResumesConfig',
     'rest_framework',
-    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'corsheaders',
     'drf_spectacular',
 ]
+
 
 
 MIDDLEWARE = [
