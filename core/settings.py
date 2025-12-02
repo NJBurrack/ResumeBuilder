@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'resumes.apps.ResumesConfig',
     'rest_framework',
-    'djangorestframework-simplejwt',
+    'rest_framework_simplejwt',
     'corsheaders',
     'drf_spectacular',
 ]
