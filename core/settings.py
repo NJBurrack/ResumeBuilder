@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'resumes.apps.ResumesConfig',
     'rest_framework',
-    'rest_framework.authtoken',
+    'djangorestframework-simplejwt',
     'corsheaders',
     'drf_spectacular',
 ]
@@ -86,16 +86,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'cv_db'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-    }
-}
+#Local Postgres setup example
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DB', 'cv_db'),
+#         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+#         'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+#         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+#     }
+# }
 
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
@@ -154,9 +155,9 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Individual Task API',
-    'DESCRIPTION': 'Rock your world with this API',
-    'VERSION': '0.0.1', # Research: learn about semver
+    'TITLE': 'Job Applications Helper Backend API',
+    'DESCRIPTION': 'API for managing user resumes and job application data.',
+    'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
 }
 

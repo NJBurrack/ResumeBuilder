@@ -59,7 +59,7 @@ class ResumeSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
 
         job_history_data = validated_data.pop('job_history', None)
-
+        
         skills_data = validated_data.pop('skills', None)
         
         education_data = validated_data.pop('education_history', None)

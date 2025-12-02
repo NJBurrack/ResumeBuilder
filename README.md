@@ -1,13 +1,7 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/TQZAUpJd)
-# Job applications (AI/Backend/Frontend)
-
-# Job Applications Helper Backend
-
-## Purpose for Frontend Developers
-
 This backend project provides a REST API designed specifically to support frontend applications in managing and displaying user resumes (CVs). It exposes endpoints that allow your frontend to create, read, update, and delete resume data, including nested details like job history, skills, and education.
 
 With this backend:
+
 - Your frontend can fetch resumes in a detailed JSON format ready to be rendered.
 - Ownership controls ensure users can only modify their own data.
 - The API is built with Django REST Framework for easy integration and extensibility.
@@ -18,14 +12,14 @@ With this backend:
 - Supports standard RESTful operations with JSON input/output.
 - Nested data structure for `job_history`, `skills`, and `education_history`.
 - Authentication required for modifying resumes.
-  
+
 ## Getting Started
 
 Use the API endpoints to integrate resume features into your frontend:
 
 - **List resumes:** GET `/api/v3/resumes/`
 - **Create resume:** POST `/api/v3/resumes/`  
-  Include fields like `name`, `bio`, `address`, plus nested arrays for skills, job history, and education.
+   Include fields like `title`, `bio`, `address`, plus nested arrays for skills, job history, and education.
 - **Detail/Update/Delete:** GET, PUT, DELETE `/api/v3/resumes/{id}/`
 
 ## Authentication
@@ -51,7 +45,6 @@ Access API docs or test endpoints through browsable API or via tools like Postma
 Automated tests ensure API responses and permissions are correct:
 
 python manage.py test resumes
-
 
 ---
 
