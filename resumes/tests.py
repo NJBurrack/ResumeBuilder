@@ -2,10 +2,11 @@ from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
-from .models import Resume
+from resumes.models import Resume
+from resumes.tasks import send_resume_created_email
 from django.core import mail
 from django.test import TestCase
-from resumes.tasks import send_resume_created_email
+
 
 
 User = get_user_model()

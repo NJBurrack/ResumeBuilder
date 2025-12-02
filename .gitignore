@@ -22,7 +22,7 @@ htmlcov/
 # Django static files and media
 staticfiles/
 media/
-
+/static
 # Local environment variables
 .env
 
